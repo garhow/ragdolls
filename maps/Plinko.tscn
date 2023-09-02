@@ -1,0 +1,442 @@
+[gd_scene load_steps=9 format=3 uid="uid://c52h4qj3b1xit"]
+
+[ext_resource type="Texture2D" uid="uid://bdg0xtpqkn2fx" path="res://objects/misc/peg.png" id="1_3y1v6"]
+[ext_resource type="PackedScene" uid="uid://ce0v4imrrwj0o" path="res://camera.tscn" id="2_mnalu"]
+
+[sub_resource type="Gradient" id="Gradient_ea1yq"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fdf1y"]
+gradient = SubResource("Gradient_ea1yq")
+width = 512
+height = 128
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j7osa"]
+size = Vector2(512, 128)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gnjb4"]
+gradient = SubResource("Gradient_ea1yq")
+width = 256
+height = 128
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4hdf"]
+size = Vector2(256, 128)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_da1da"]
+radius = 4.0
+
+[node name="Plinko" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 256)
+
+[node name="Sprite" type="Sprite2D" parent="Ground"]
+texture = SubResource("GradientTexture2D_fdf1y")
+
+[node name="Collision" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_j7osa")
+
+[node name="Ground2" type="StaticBody2D" parent="."]
+position = Vector2(-301, 184)
+rotation = 0.785398
+
+[node name="Sprite" type="Sprite2D" parent="Ground2"]
+texture = SubResource("GradientTexture2D_gnjb4")
+
+[node name="Collision" type="CollisionShape2D" parent="Ground2"]
+shape = SubResource("RectangleShape2D_f4hdf")
+
+[node name="Ground3" type="StaticBody2D" parent="."]
+position = Vector2(301, 184)
+rotation = -0.785398
+
+[node name="Sprite" type="Sprite2D" parent="Ground3"]
+texture = SubResource("GradientTexture2D_gnjb4")
+
+[node name="Collision" type="CollisionShape2D" parent="Ground3"]
+shape = SubResource("RectangleShape2D_f4hdf")
+
+[node name="Plinko" type="Node2D" parent="."]
+
+[node name="Row" type="Node2D" parent="Plinko"]
+
+[node name="Peg" type="StaticBody2D" parent="Plinko/Row"]
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row/Peg"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row/Peg"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg2" type="StaticBody2D" parent="Plinko/Row"]
+position = Vector2(64, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row/Peg2"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row/Peg2"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg3" type="StaticBody2D" parent="Plinko/Row"]
+position = Vector2(-64, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row/Peg3"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row/Peg3"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg4" type="StaticBody2D" parent="Plinko/Row"]
+position = Vector2(-128, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row/Peg4"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row/Peg4"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg5" type="StaticBody2D" parent="Plinko/Row"]
+position = Vector2(128, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row/Peg5"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row/Peg5"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg6" type="StaticBody2D" parent="Plinko/Row"]
+position = Vector2(192, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row/Peg6"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row/Peg6"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg7" type="StaticBody2D" parent="Plinko/Row"]
+position = Vector2(-192, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row/Peg7"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row/Peg7"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Row4" type="Node2D" parent="Plinko"]
+position = Vector2(0, 128)
+
+[node name="Peg" type="StaticBody2D" parent="Plinko/Row4"]
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row4/Peg"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row4/Peg"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg2" type="StaticBody2D" parent="Plinko/Row4"]
+position = Vector2(64, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row4/Peg2"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row4/Peg2"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg3" type="StaticBody2D" parent="Plinko/Row4"]
+position = Vector2(-64, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row4/Peg3"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row4/Peg3"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg4" type="StaticBody2D" parent="Plinko/Row4"]
+position = Vector2(-128, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row4/Peg4"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row4/Peg4"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg5" type="StaticBody2D" parent="Plinko/Row4"]
+position = Vector2(128, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row4/Peg5"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row4/Peg5"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg6" type="StaticBody2D" parent="Plinko/Row4"]
+position = Vector2(192, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row4/Peg6"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row4/Peg6"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg7" type="StaticBody2D" parent="Plinko/Row4"]
+position = Vector2(-192, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row4/Peg7"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row4/Peg7"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Row5" type="Node2D" parent="Plinko"]
+position = Vector2(0, -128)
+
+[node name="Peg" type="StaticBody2D" parent="Plinko/Row5"]
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row5/Peg"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row5/Peg"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg2" type="StaticBody2D" parent="Plinko/Row5"]
+position = Vector2(64, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row5/Peg2"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row5/Peg2"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg3" type="StaticBody2D" parent="Plinko/Row5"]
+position = Vector2(-64, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row5/Peg3"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row5/Peg3"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg4" type="StaticBody2D" parent="Plinko/Row5"]
+position = Vector2(-128, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row5/Peg4"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row5/Peg4"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg5" type="StaticBody2D" parent="Plinko/Row5"]
+position = Vector2(128, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row5/Peg5"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row5/Peg5"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg6" type="StaticBody2D" parent="Plinko/Row5"]
+position = Vector2(192, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row5/Peg6"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row5/Peg6"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg7" type="StaticBody2D" parent="Plinko/Row5"]
+position = Vector2(-192, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row5/Peg7"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row5/Peg7"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Row2" type="Node2D" parent="Plinko"]
+position = Vector2(0, -64)
+
+[node name="Peg" type="StaticBody2D" parent="Plinko/Row2"]
+position = Vector2(-32, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row2/Peg"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row2/Peg"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg2" type="StaticBody2D" parent="Plinko/Row2"]
+position = Vector2(32, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row2/Peg2"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row2/Peg2"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg3" type="StaticBody2D" parent="Plinko/Row2"]
+position = Vector2(96, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row2/Peg3"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row2/Peg3"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg4" type="StaticBody2D" parent="Plinko/Row2"]
+position = Vector2(-96, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row2/Peg4"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row2/Peg4"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg5" type="StaticBody2D" parent="Plinko/Row2"]
+position = Vector2(-158, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row2/Peg5"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row2/Peg5"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg6" type="StaticBody2D" parent="Plinko/Row2"]
+position = Vector2(158, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row2/Peg6"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row2/Peg6"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg7" type="StaticBody2D" parent="Plinko/Row2"]
+position = Vector2(222, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row2/Peg7"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row2/Peg7"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg8" type="StaticBody2D" parent="Plinko/Row2"]
+position = Vector2(-222, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row2/Peg8"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row2/Peg8"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Row3" type="Node2D" parent="Plinko"]
+position = Vector2(0, 64)
+
+[node name="Peg" type="StaticBody2D" parent="Plinko/Row3"]
+position = Vector2(-32, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row3/Peg"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row3/Peg"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg2" type="StaticBody2D" parent="Plinko/Row3"]
+position = Vector2(32, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row3/Peg2"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row3/Peg2"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg3" type="StaticBody2D" parent="Plinko/Row3"]
+position = Vector2(96, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row3/Peg3"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row3/Peg3"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg4" type="StaticBody2D" parent="Plinko/Row3"]
+position = Vector2(-96, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row3/Peg4"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row3/Peg4"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg5" type="StaticBody2D" parent="Plinko/Row3"]
+position = Vector2(-158, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row3/Peg5"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row3/Peg5"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg6" type="StaticBody2D" parent="Plinko/Row3"]
+position = Vector2(158, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row3/Peg6"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row3/Peg6"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg7" type="StaticBody2D" parent="Plinko/Row3"]
+position = Vector2(222, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row3/Peg7"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row3/Peg7"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Peg8" type="StaticBody2D" parent="Plinko/Row3"]
+position = Vector2(-222, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="Plinko/Row3/Peg8"]
+shape = SubResource("CircleShape2D_da1da")
+
+[node name="Sprite" type="Sprite2D" parent="Plinko/Row3/Peg8"]
+texture_filter = 1
+texture = ExtResource("1_3y1v6")
+
+[node name="Camera" parent="." instance=ExtResource("2_mnalu")]

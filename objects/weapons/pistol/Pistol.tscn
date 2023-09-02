@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3y7dhtrmiuug"]
+
+[ext_resource type="Script" path="res://objects/weapons/pistol/Pistol.gd" id="1_115jd"]
+[ext_resource type="Texture2D" uid="uid://c3o3mly38epop" path="res://objects/weapons/pistol/Sprite.png" id="2_5ovgf"]
+[ext_resource type="AudioStream" uid="uid://db0e58qxhsllv" path="res://objects/weapons/pistol/Fire.ogg" id="3_1ju45"]
+[ext_resource type="AudioStream" uid="uid://bulm80kjm141l" path="res://objects/weapons/pistol/Empty.ogg" id="4_kvwtb"]
+
+[node name="Pistol" type="RigidBody2D" node_paths=PackedStringArray("dry_fire_sound", "fire_sound")]
+mass = 8.0
+script = ExtResource("1_115jd")
+dry_fire_sound = NodePath("Empty")
+fire_sound = NodePath("Fire")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_5ovgf")
+
+[node name="Fire" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_1ju45")
+
+[node name="Empty" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_kvwtb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(7, 3, 2.8, 3, 0.8, 5, -7, 5, -7, -5, 7, -5)

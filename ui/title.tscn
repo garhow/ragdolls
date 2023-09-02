@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://51oypqmhqkrg"]
+
+[ext_resource type="Script" path="res://ui/Map_select.gd" id="1_ujmp3"]
+[ext_resource type="PackedScene" uid="uid://cmt15x21v0x1g" path="res://maps/Basic.tscn" id="2_litkw"]
+[ext_resource type="PackedScene" uid="uid://c52h4qj3b1xit" path="res://maps/Plinko.tscn" id="3_gbice"]
+
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VSplitContainer" type="VSplitContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 48
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Ragdoll game"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Select a map"
+horizontal_alignment = 1
+
+[node name="Map Select" type="GridContainer" parent="PanelContainer/MarginContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+script = ExtResource("1_ujmp3")
+basic_scene = ExtResource("2_litkw")
+plinko_scene = ExtResource("3_gbice")
+
+[node name="Basic" type="Button" parent="PanelContainer/MarginContainer/VSplitContainer/VBoxContainer/Map Select"]
+layout_mode = 2
+text = "Basic"
+
+[node name="Plinko" type="Button" parent="PanelContainer/MarginContainer/VSplitContainer/VBoxContainer/Map Select"]
+layout_mode = 2
+text = "Plinko"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VSplitContainer/VBoxContainer/Map Select/Basic" to="PanelContainer/MarginContainer/VSplitContainer/VBoxContainer/Map Select" method="_on_basic_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VSplitContainer/VBoxContainer/Map Select/Plinko" to="PanelContainer/MarginContainer/VSplitContainer/VBoxContainer/Map Select" method="_on_plinko_pressed"]

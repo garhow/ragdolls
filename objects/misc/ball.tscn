@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5xok86cifw0j"]
+
+[ext_resource type="Script" path="res://Draggable.gd" id="1_kgxsy"]
+[ext_resource type="Texture2D" uid="uid://bdg0xtpqkn2fx" path="res://objects/misc/peg.png" id="1_sikte"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pn3ya"]
+radius = 16.0
+
+[node name="Ball" type="RigidBody2D"]
+mass = 4.0
+script = ExtResource("1_kgxsy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("1_sikte")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pn3ya")
