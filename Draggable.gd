@@ -1,6 +1,8 @@
 class_name Draggable
 extends RigidBody2D
 
+@export var flippable := true
+
 var dragging := false
 var hovering := false
 
@@ -12,8 +14,20 @@ func _ready():
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 
+func _input(_event):
+	if hovering or dragging:
+		if Input.is_action_just_pressed("freeze"): freeze = !freeze
+		if Input.is_action_just_pressed("interact"): _interact()
+		if Input.is_action_just_pressed("flip"): _flip()
+
 func _interact():
 	pass
+
+func _flip():
+	pass
+	#if flippable:
+	#	for child in get_children():
+	#		child.scale.x = -1
 
 func _process(_delta):
 	if hovering:
@@ -34,7 +48,7 @@ func _physics_process(_delta):
 			var joint = PinJoint2D.new()
 			joint.node_a = pivot.get_path()
 			joint.node_b = self.get_path()
-			joint.softness = 1.05
+			joint.softness = 0.1
 			joint.position = get_local_mouse_position()
 			add_child(joint)
 			
@@ -48,10 +62,6 @@ func _physics_process(_delta):
 		if current_pivot:
 			current_pivot.queue_free()
 			current_pivot = null
-		
-	
-	if Input.is_action_just_pressed("freeze") and (hovering or dragging): freeze = !freeze
-	if Input.is_action_just_pressed("interact") and (hovering or dragging): _interact()
 
 func _on_mouse_entered(): hovering = true
 func _on_mouse_exited(): hovering = false

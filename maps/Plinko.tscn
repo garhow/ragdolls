@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c52h4qj3b1xit"]
+[gd_scene load_steps=10 format=3 uid="uid://c52h4qj3b1xit"]
 
 [ext_resource type="Texture2D" uid="uid://bdg0xtpqkn2fx" path="res://objects/misc/peg.png" id="1_3y1v6"]
 [ext_resource type="PackedScene" uid="uid://ce0v4imrrwj0o" path="res://camera.tscn" id="2_mnalu"]
+[ext_resource type="PackedScene" uid="uid://c3y7dhtrmiuug" path="res://objects/weapons/pistol/Pistol.tscn" id="3_vcxdn"]
 
 [sub_resource type="Gradient" id="Gradient_ea1yq"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -440,3 +441,6 @@ texture_filter = 1
 texture = ExtResource("1_3y1v6")
 
 [node name="Camera" parent="." instance=ExtResource("2_mnalu")]
+
+[node name="Pistol" parent="." instance=ExtResource("3_vcxdn")]
+position = Vector2(-119, 175)
