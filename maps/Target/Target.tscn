@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://yss1m12xmw46"]
+
+[ext_resource type="PackedScene" uid="uid://ce0v4imrrwj0o" path="res://Player.tscn" id="1_exhuh"]
+[ext_resource type="Texture2D" uid="uid://cgfmlcmqfgw0t" path="res://maps/Target/Circle.png" id="2_3favm"]
+[ext_resource type="Texture2D" uid="uid://g7ujtqmvhaso" path="res://maps/Target/Ring.png" id="3_xwalg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1lppo"]
+radius = 64.0
+
+[node name="Target" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_exhuh")]
+
+[node name="Static Geometry" type="Node2D" parent="."]
+
+[node name="Circle" type="StaticBody2D" parent="Static Geometry"]
+
+[node name="Sprite" type="Sprite2D" parent="Static Geometry/Circle"]
+texture_filter = 1
+texture = ExtResource("2_3favm")
+
+[node name="Collision" type="CollisionShape2D" parent="Static Geometry/Circle"]
+shape = SubResource("CircleShape2D_1lppo")
+
+[node name="Inner Ring" type="StaticBody2D" parent="Static Geometry"]
+
+[node name="Sprite" type="Sprite2D" parent="Static Geometry/Inner Ring"]
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_xwalg")
+
+[node name="Lower Collision" type="CollisionPolygon2D" parent="Static Geometry/Inner Ring"]
+polygon = PackedVector2Array(-192, 0, -180, 0, -177, 36, -158, 88, -126, 130, -82, 161, -41, 176, 0, 180, 58, 171, 95, 154, 141, 112, 169, 66, 178, 32, 180, 0, 192, 0, 182, 65, 148, 123, 107, 161, 63, 182, 0, 192, -64, 182, -118, 153, -152, 119, -172, 88, -187, 52)
+
+[node name="Upper Collision" type="CollisionPolygon2D" parent="Static Geometry/Inner Ring"]
+scale = Vector2(1, -1)
+polygon = PackedVector2Array(-192, 0, -180, 0, -177, 36, -158, 88, -126, 130, -82, 161, -41, 176, 0, 180, 58, 171, 95, 154, 141, 112, 169, 66, 178, 32, 180, 0, 192, 0, 182, 65, 148, 123, 107, 161, 63, 182, 0, 192, -64, 182, -118, 153, -152, 119, -172, 88, -187, 52)
+
+[node name="Outer Ring" type="StaticBody2D" parent="Static Geometry"]
+
+[node name="Sprite" type="Sprite2D" parent="Static Geometry/Outer Ring"]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("3_xwalg")
+
+[node name="Lower Collision" type="CollisionPolygon2D" parent="Static Geometry/Outer Ring"]
+scale = Vector2(2, 2)
+polygon = PackedVector2Array(-192, 0, -180, 0, -177, 36, -158, 88, -126, 130, -82, 161, -41, 176, 0, 180, 58, 171, 95, 154, 141, 112, 169, 66, 178, 32, 180, 0, 192, 0, 182, 65, 148, 123, 107, 161, 63, 182, 0, 192, -64, 182, -118, 153, -152, 119, -172, 88, -187, 52)
+
+[node name="Upper Collision" type="CollisionPolygon2D" parent="Static Geometry/Outer Ring"]
+scale = Vector2(2, -2)
+polygon = PackedVector2Array(-192, 0, -180, 0, -177, 36, -158, 88, -126, 130, -82, 161, -41, 176, 0, 180, 58, 171, 95, 154, 141, 112, 169, 66, 178, 32, 180, 0, 192, 0, 182, 65, 148, 123, 107, 161, 63, 182, 0, 192, -64, 182, -118, 153, -152, 119, -172, 88, -187, 52)

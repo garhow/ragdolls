@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ooem2rofuo3h"
-path="res://.godot/imported/Torso.png-28b85118a773132941ef24d9d5dd8b26.ctex"
+uid="uid://dypxix2l2wmlh"
+path="res://.godot/imported/Sprite.png-6279cf37b680b771d300a3f1620fdd00.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/characters/human/Torso.png"
-dest_files=["res://.godot/imported/Torso.png-28b85118a773132941ef24d9d5dd8b26.ctex"]
+source_file="res://objects/creatures/human/Sprite.png"
+dest_files=["res://.godot/imported/Sprite.png-6279cf37b680b771d300a3f1620fdd00.ctex"]
 
 [params]
 

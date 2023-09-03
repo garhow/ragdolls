@@ -1,5 +1,20 @@
 # Ragdolls - simulation physics experiment
 
+## Controls
+
+### Action
+
+* `E` - spawn object
+* `F` - freeze selected object
+* `R` - interact with selected object
+* `P` - pause game
+
+### Camera
+
+* Middle Mouse Button - pan across the screen
+* Mouse Wheel Up - zoom in
+* Mouse Wheel Down - zoom out
+
 ## Credits
 
 Idea by my friend Dream

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce6jmoonvoa4c"
-path="res://.godot/imported/Head.png-f646a4602e337d97fca1ebafe03e9034.ctex"
+uid="uid://caqle3rbx23b8"
+path="res://.godot/imported/Limb.png-f7606690f6ba658dfc8f53d4ca75ec79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/characters/human/Head.png"
-dest_files=["res://.godot/imported/Head.png-f646a4602e337d97fca1ebafe03e9034.ctex"]
+source_file="res://objects/creatures/human/Limb.png"
+dest_files=["res://.godot/imported/Limb.png-f7606690f6ba658dfc8f53d4ca75ec79.ctex"]
 
 [params]
 

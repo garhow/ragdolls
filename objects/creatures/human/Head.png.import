@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dypxix2l2wmlh"
-path="res://.godot/imported/Sprite.png-6e55b73d5fc1599a8f4a0f71965d7e40.ctex"
+uid="uid://ce6jmoonvoa4c"
+path="res://.godot/imported/Head.png-fe9ee7996f17356f7711b67bce70d496.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/characters/human/Sprite.png"
-dest_files=["res://.godot/imported/Sprite.png-6e55b73d5fc1599a8f4a0f71965d7e40.ctex"]
+source_file="res://objects/creatures/human/Head.png"
+dest_files=["res://.godot/imported/Head.png-fe9ee7996f17356f7711b67bce70d496.ctex"]
 
 [params]
 

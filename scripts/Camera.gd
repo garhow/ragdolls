@@ -1,18 +1,12 @@
 extends Camera2D
 
 const MIN_ZOOM := 0.5
-const MAX_ZOOM := 2.0
+const MAX_ZOOM := 3.0
 const ZOOM_INCREMENT := 0.1
 
 var target_zoom := 1.0
 
 func _input(event):
-	if Input.is_action_just_pressed("spawn"):
-		if Game.selected_object:
-			var object = Game.selected_object.instantiate()
-			object.global_position = get_global_mouse_position()
-			get_tree().current_scene.add_child(object)
-	
 	# Zooming using the scroll wheel
 	if event is InputEventMouseButton:
 		if event.is_pressed():
