@@ -1,123 +1,338 @@
-[gd_scene load_steps=5 format=3 uid="uid://ce0v4imrrwj0o"]
+[gd_scene load_steps=10 format=3 uid="uid://ce0v4imrrwj0o"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_0b2wf"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="1_dxxau"]
 [ext_resource type="Script" path="res://scripts/UI.gd" id="3_f4pju"]
+[ext_resource type="Script" path="res://scripts/Pause Menu.gd" id="4_ap2el"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esew8"]
 
-[node name="Player" type="Node2D"]
+[sub_resource type="LabelSettings" id="LabelSettings_ganon"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pujp0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g475n"]
+font_size = 24
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sysie"]
+radius = 256.0
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("lift", "pull", "push")]
 process_mode = 3
 script = ExtResource("1_0b2wf")
+lift = NodePath("Lift")
+pull = NodePath("Pull")
+push = NodePath("Push")
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(1.2, 1.2)
 script = ExtResource("1_dxxau")
 
-[node name="User Interface" type="CanvasLayer" parent="Camera" node_paths=PackedStringArray("player", "pause_indicator", "creature_grid", "misc_grid", "weapon_grid")]
+[node name="User Interface" type="CanvasLayer" parent="Camera" node_paths=PackedStringArray("player", "pause_indicator", "slow_motion_indicator", "creature_grid", "misc_grid", "weapon_grid", "vehicle_grid")]
 script = ExtResource("3_f4pju")
 player = NodePath("../..")
-pause_indicator = NodePath("Paused")
-creature_grid = NodePath("PanelContainer/MarginContainer/VBoxContainer/Spawnlist/Creatures/Grid")
-misc_grid = NodePath("PanelContainer/MarginContainer/VBoxContainer/Spawnlist/Miscellaneous/Grid")
-weapon_grid = NodePath("PanelContainer/MarginContainer/VBoxContainer/Spawnlist/Weapons/Grid")
+pause_indicator = NodePath("Game State Indicators/Paused")
+slow_motion_indicator = NodePath("Game State Indicators/Slow")
+creature_grid = NodePath("Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Creatures/Grid")
+misc_grid = NodePath("Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Miscellaneous/Grid")
+weapon_grid = NodePath("Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Weapons/Grid")
+vehicle_grid = NodePath("Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Vehicles/Grid")
 
-[node name="PanelContainer" type="PanelContainer" parent="Camera/User Interface"]
+[node name="Spawnlist" type="PanelContainer" parent="Camera/User Interface"]
+custom_minimum_size = Vector2(256, 0)
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 124.0
 grow_vertical = 2
 size_flags_horizontal = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera/User Interface/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Camera/User Interface/Spawnlist"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera/User Interface/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera/User Interface/Spawnlist/MarginContainer"]
 layout_mode = 2
 
-[node name="Spawnlist" type="VBoxContainer" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Spawnlist" type="VBoxContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist"]
+[node name="Label2" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist"]
 layout_mode = 2
 text = "Spawnlist"
 
-[node name="HSeparator3" type="HSeparator" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist"]
+[node name="HSeparator3" type="HSeparator" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist"]
 layout_mode = 2
 
-[node name="Creatures" type="VBoxContainer" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist"]
+[node name="Creatures" type="VBoxContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist/Creatures"]
+[node name="Label" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Creatures"]
 layout_mode = 2
 text = "Creatures"
 
-[node name="Grid" type="GridContainer" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist/Creatures"]
+[node name="Grid" type="GridContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Creatures"]
 layout_mode = 2
 columns = 2
 
-[node name="HSeparator" type="HSeparator" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist"]
+[node name="HSeparator" type="HSeparator" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist"]
 layout_mode = 2
 
-[node name="Weapons" type="VBoxContainer" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist"]
+[node name="Miscellaneous" type="VBoxContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist/Weapons"]
-layout_mode = 2
-text = "Weapons"
-
-[node name="Grid" type="GridContainer" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist/Weapons"]
-layout_mode = 2
-columns = 2
-
-[node name="HSeparator2" type="HSeparator" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist"]
-layout_mode = 2
-
-[node name="Miscellaneous" type="VBoxContainer" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist/Miscellaneous"]
+[node name="Label" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Miscellaneous"]
 layout_mode = 2
 text = "Miscellaneous"
 
-[node name="Grid" type="GridContainer" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Spawnlist/Miscellaneous"]
+[node name="Grid" type="GridContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Miscellaneous"]
 layout_mode = 2
 columns = 2
 
-[node name="HSeparator" type="HSeparator" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist"]
 layout_mode = 2
 
-[node name="Tips" type="VBoxContainer" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Weapons" type="VBoxContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Weapons"]
+layout_mode = 2
+text = "Weapons"
+
+[node name="Grid" type="GridContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Weapons"]
+layout_mode = 2
+columns = 2
+
+[node name="HSeparator2" type="HSeparator" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist"]
+layout_mode = 2
+
+[node name="Vehicles" type="VBoxContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Vehicles"]
+layout_mode = 2
+text = "Vehicles"
+
+[node name="Grid" type="GridContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Vehicles"]
+layout_mode = 2
+columns = 2
+
+[node name="HSeparator" type="HSeparator" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Tips" type="VBoxContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 
-[node name="Spawn Tip" type="Label" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Tips"]
+[node name="Spawn Tip" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
 layout_mode = 2
 text = "· Press E to spawn an object"
 autowrap_mode = 2
 
-[node name="Freeze Tip" type="Label" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Tips"]
+[node name="Deletion Tip" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
 layout_mode = 2
-text = "· Press F to freeze an object"
+text = "· Press D or DEL to delete an object"
 autowrap_mode = 2
 
-[node name="Interact Tip" type="Label" parent="Camera/User Interface/PanelContainer/MarginContainer/VBoxContainer/Tips"]
+[node name="Interact Tip" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
 layout_mode = 2
 text = "· Press R to interact with an object"
 autowrap_mode = 2
 
-[node name="Paused" type="Label" parent="Camera/User Interface"]
+[node name="Freeze Tip" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
+layout_mode = 2
+text = "· Press F to freeze an object"
+autowrap_mode = 2
+
+[node name="Pause Tip" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
+layout_mode = 2
+text = "· Press P to pause physics"
+autowrap_mode = 2
+
+[node name="Freeze Tip3" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
+layout_mode = 2
+text = "· Press G to slow down physics"
+autowrap_mode = 2
+
+[node name="Tools" type="PanelContainer" parent="Camera/User Interface"]
+custom_minimum_size = Vector2(86.22, 0)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -86.22
+offset_top = -60.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera/User Interface/Tools"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VSplitContainer" type="VSplitContainer" parent="Camera/User Interface/Tools/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer"]
+layout_mode = 2
+text = "Tools"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="Drag" type="Button" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Drag objects around."
+text = "Drag"
+
+[node name="Pin" type="Button" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Pin objects to the background."
+text = "Pin"
+
+[node name="Pull" type="Button" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Pin objects to the background."
+text = "Pull"
+
+[node name="Push" type="Button" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Pin objects to the background."
+text = "Push"
+
+[node name="Lift" type="Button" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Pin objects to the background."
+text = "Lift"
+
+[node name="Pause Menu" type="PanelContainer" parent="Camera/User Interface"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.5
+offset_top = -77.5
+offset_right = 67.5
+offset_bottom = 77.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_ap2el")
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera/User Interface/Pause Menu"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VSplitContainer" type="VSplitContainer" parent="Camera/User Interface/Pause Menu/MarginContainer"]
+layout_mode = 2
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer"]
+layout_mode = 2
+text = "Pause Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Return to Title" type="Button" parent="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Return to Title"
+
+[node name="Quit Game" type="Button" parent="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit Game"
+
+[node name="Game State Indicators" type="VBoxContainer" parent="Camera/User Interface"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -57.0
-offset_bottom = 26.0
+offset_left = -247.0
+offset_bottom = 78.0
 grow_horizontal = 0
+
+[node name="Paused" type="Label" parent="Camera/User Interface/Game State Indicators"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_esew8")
 text = "Paused"
+label_settings = SubResource("LabelSettings_ganon")
 horizontal_alignment = 1
+
+[node name="Slow" type="Label" parent="Camera/User Interface/Game State Indicators"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_pujp0")
+text = "Slow-motion enabled"
+label_settings = SubResource("LabelSettings_g475n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pull" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+gravity_space_override = 2
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+gravity = 1960.0
+linear_damp_space_override = 2
+linear_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pull"]
+shape = SubResource("CircleShape2D_sysie")
+
+[node name="Push" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+gravity_space_override = 2
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+gravity = -1440.0
+linear_damp_space_override = 2
+linear_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Push"]
+shape = SubResource("CircleShape2D_sysie")
+debug_color = Color(1, 0.6, 0, 0.419608)
+
+[node name="Lift" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+gravity_space_override = 2
+gravity = -1440.0
+linear_damp_space_override = 2
+linear_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lift"]
+shape = SubResource("CircleShape2D_sysie")
+debug_color = Color(0, 0.6, 0, 0.419608)
+
+[connection signal="pressed" from="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer/Drag" to="Camera/User Interface" method="_on_tool_picked" binds= [0]]
+[connection signal="pressed" from="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer/Pin" to="Camera/User Interface" method="_on_tool_picked" binds= [1]]
+[connection signal="pressed" from="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer/Pull" to="Camera/User Interface" method="_on_tool_picked" binds= [2]]
+[connection signal="pressed" from="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer/Push" to="Camera/User Interface" method="_on_tool_picked" binds= [3]]
+[connection signal="pressed" from="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer/Lift" to="Camera/User Interface" method="_on_tool_picked" binds= [4]]
+[connection signal="pressed" from="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer/Resume" to="Camera/User Interface/Pause Menu" method="_resume"]
+[connection signal="pressed" from="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer/Return to Title" to="Camera/User Interface/Pause Menu" method="_return_to_title"]
+[connection signal="pressed" from="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer/Quit Game" to="Camera/User Interface/Pause Menu" method="_quit_game"]

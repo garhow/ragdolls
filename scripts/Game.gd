@@ -16,9 +16,17 @@ var maps := {
 		"name": "Basic",
 		"resource": preload("res://maps/Basic.tscn")
 	},
+	"box": {
+		"name": "Box",
+		"resource": preload("res://maps/Box.tscn")
+	},
 	"plinko": {
 		"name": "Plinko",
 		"resource": preload("res://maps/Plinko.tscn")
+	},
+	"pool": {
+		"name": "Pool",
+		"resource": preload("res://maps/Pool.tscn")
 	},
 	"target": {
 		"name": "Target",
@@ -38,13 +46,17 @@ var spawnlist := {
 		},
 	},
 	"miscellaneous": {
-		"ball": {
-			"name": "Ball",
-			"resource": preload("res://objects/misc/ball.tscn")
+		"boulder": {
+			"name": "Boulder",
+			"resource": preload("res://objects/misc/Boulder/Boulder.tscn")
 		},
 		"large_ball": {
 			"name": "Large Ball",
 			"resource": preload("res://objects/misc/large_ball.tscn")
+		},
+		"trampoline": {
+			"name": "Trampoline",
+			"resource": preload("res://objects/misc/Trampoline/Trampoline.tscn")
 		}
 	},
 	"weapons": {
@@ -52,8 +64,26 @@ var spawnlist := {
 			"name": "Pistol",
 			"resource": preload("res://objects/weapons/pistol/Pistol.tscn")
 		}
+	},
+	"vehicles": {
+		"car": {
+			"name": "Car",
+			"resource": preload("res://objects/vehicles/Car/Car.tscn")
+		}
 	}
 }
 
 ## The object that is selected to be spawned.
 var selected_object: PackedScene
+
+# Tools
+enum Tools {
+	DRAG,
+	PIN,
+	PULL,
+	PUSH,
+	LIFT
+}
+
+# Current tool
+var tool: Tools = Tools.DRAG

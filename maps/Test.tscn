@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://dfeifsck7saau"]
+
+[ext_resource type="PackedScene" uid="uid://ce0v4imrrwj0o" path="res://Player.tscn" id="1_6ls57"]
+[ext_resource type="PackedScene" uid="uid://rugbym61gnn" path="res://objects/vehicles/Car/Car.tscn" id="2_ejdrc"]
+[ext_resource type="PackedScene" uid="uid://c2mpvol6kjekl" path="res://objects/misc/Trampoline/Trampoline.tscn" id="4_wrpj0"]
+
+[sub_resource type="Gradient" id="Gradient_ea1yq"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fdf1y"]
+gradient = SubResource("Gradient_ea1yq")
+width = 1024
+height = 128
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j7osa"]
+size = Vector2(1024, 128)
+
+[node name="Basic" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 256)
+
+[node name="Sprite" type="Sprite2D" parent="Ground"]
+texture = SubResource("GradientTexture2D_fdf1y")
+
+[node name="Collision" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_j7osa")
+
+[node name="Player" parent="." instance=ExtResource("1_6ls57")]
+
+[node name="Car" parent="." instance=ExtResource("2_ejdrc")]
+
+[node name="Trampoline" parent="." instance=ExtResource("4_wrpj0")]
+position = Vector2(-366, 148)

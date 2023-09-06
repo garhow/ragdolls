@@ -8,6 +8,7 @@ radius = 16.0
 
 [node name="Large Ball" type="RigidBody2D"]
 mass = 32.0
+can_sleep = false
 script = ExtResource("1_y23rl")
 
 [node name="Sprite" type="Sprite2D" parent="."]

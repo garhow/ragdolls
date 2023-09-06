@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxnvl2c4qn347"]
+[gd_scene load_steps=7 format=3 uid="uid://dxnvl2c4qn347"]
 
-[ext_resource type="Script" path="res://objects/creatures/human/Human.gd" id="1_d2gug"]
 [ext_resource type="Script" path="res://classes/Draggable.gd" id="2_w4d4i"]
 [ext_resource type="Texture2D" uid="uid://ce6jmoonvoa4c" path="res://objects/creatures/human/Head.png" id="3_wq0tl"]
 [ext_resource type="Texture2D" uid="uid://ooem2rofuo3h" path="res://objects/creatures/human/Torso.png" id="4_47csg"]
@@ -12,10 +11,10 @@
 size = Vector2(8, 24)
 
 [node name="Human" type="Node2D"]
-script = ExtResource("1_d2gug")
 
 [node name="Head" type="RigidBody2D" parent="."]
-position = Vector2(0, -20)
+position = Vector2(0, -24)
+mass = 0.1
 script = ExtResource("2_w4d4i")
 flippable = false
 
@@ -26,12 +25,14 @@ shape = SubResource("CircleShape2D_5vyh5")
 texture_filter = 1
 texture = ExtResource("3_wq0tl")
 
-[node name="PinJoint2D" type="PinJoint2D" parent="."]
-position = Vector2(0, -12)
-node_a = NodePath("../Head")
-node_b = NodePath("../Torso")
+[node name="Head" type="PinJoint2D" parent="Head"]
+position = Vector2(0, 8)
+node_a = NodePath("..")
+node_b = NodePath("../../Torso")
+disable_collision = false
 
 [node name="Torso" type="RigidBody2D" parent="."]
+mass = 0.1
 script = ExtResource("2_w4d4i")
 flippable = false
 
@@ -42,33 +43,10 @@ shape = SubResource("RectangleShape2D_mwmk1")
 texture_filter = 1
 texture = ExtResource("4_47csg")
 
-[node name="PinJoint2D2" type="PinJoint2D" parent="."]
-position = Vector2(-2, 10)
-node_a = NodePath("../Torso")
-node_b = NodePath("../Right Leg")
-
-[node name="PinJoint2D3" type="PinJoint2D" parent="."]
-position = Vector2(3, 11)
-node_a = NodePath("../Torso")
-node_b = NodePath("../Left Leg")
-
-[node name="Right Leg" type="RigidBody2D" parent="."]
-position = Vector2(-2, 22)
-rotation = 0.0349066
-script = ExtResource("2_w4d4i")
-flippable = false
-
-[node name="Collision" type="CollisionShape2D" parent="Right Leg"]
-shape = SubResource("RectangleShape2D_mwmk1")
-
-[node name="Sprite" type="Sprite2D" parent="Right Leg"]
-texture_filter = 1
-texture = ExtResource("5_4ihl1")
-
 [node name="Left Leg" type="RigidBody2D" parent="."]
-show_behind_parent = true
-position = Vector2(2, 22)
-rotation = -0.0349066
+position = Vector2(-5, 26)
+rotation = 0.0698132
+mass = 0.1
 script = ExtResource("2_w4d4i")
 flippable = false
 
@@ -79,19 +57,59 @@ shape = SubResource("RectangleShape2D_mwmk1")
 texture_filter = 1
 texture = ExtResource("5_4ihl1")
 
-[node name="PinJoint2D4" type="PinJoint2D" parent="."]
-position = Vector2(-5, -11)
-node_a = NodePath("../Torso")
-node_b = NodePath("../Right Arm")
+[node name="Left Leg" type="PinJoint2D" parent="Left Leg"]
+position = Vector2(0, -11)
+node_a = NodePath("../../Torso")
+node_b = NodePath("..")
+disable_collision = false
 
-[node name="PinJoint2D5" type="PinJoint2D" parent="."]
-position = Vector2(6, -11)
-node_a = NodePath("../Torso")
-node_b = NodePath("../Left Arm")
+[node name="Right Leg" type="RigidBody2D" parent="."]
+show_behind_parent = true
+position = Vector2(6, 26)
+rotation = -0.0698132
+mass = 0.1
+script = ExtResource("2_w4d4i")
+flippable = false
+
+[node name="Collision" type="CollisionShape2D" parent="Right Leg"]
+shape = SubResource("RectangleShape2D_mwmk1")
+
+[node name="Sprite" type="Sprite2D" parent="Right Leg"]
+texture_filter = 1
+texture = ExtResource("5_4ihl1")
+
+[node name="Right Leg" type="PinJoint2D" parent="Right Leg"]
+position = Vector2(0, -11)
+node_a = NodePath("../../Torso")
+node_b = NodePath("..")
+disable_collision = false
+
+[node name="Left Arm" type="RigidBody2D" parent="."]
+position = Vector2(-20, -10)
+rotation = 1.5708
+mass = 0.1
+script = ExtResource("2_w4d4i")
+flippable = false
+
+[node name="Collision" type="CollisionShape2D" parent="Left Arm"]
+shape = SubResource("RectangleShape2D_mwmk1")
+
+[node name="Sprite" type="Sprite2D" parent="Left Arm"]
+texture_filter = 1
+texture = ExtResource("5_4ihl1")
+
+[node name="Left Arm" type="PinJoint2D" parent="Left Arm"]
+position = Vector2(-4.76837e-07, -11)
+rotation = -1.5708
+node_a = NodePath("../../Torso")
+node_b = NodePath("..")
+disable_collision = false
 
 [node name="Right Arm" type="RigidBody2D" parent="."]
-position = Vector2(-8, 0)
-rotation = 0.127409
+show_behind_parent = true
+position = Vector2(20, -10)
+rotation = -1.5708
+mass = 0.1
 script = ExtResource("2_w4d4i")
 flippable = false
 
@@ -102,16 +120,9 @@ shape = SubResource("RectangleShape2D_mwmk1")
 texture_filter = 1
 texture = ExtResource("5_4ihl1")
 
-[node name="Left Arm" type="RigidBody2D" parent="."]
-show_behind_parent = true
-position = Vector2(6, 0)
-rotation = -0.125664
-script = ExtResource("2_w4d4i")
-flippable = false
-
-[node name="Collision" type="CollisionShape2D" parent="Left Arm"]
-shape = SubResource("RectangleShape2D_mwmk1")
-
-[node name="Sprite" type="Sprite2D" parent="Left Arm"]
-texture_filter = 1
-texture = ExtResource("5_4ihl1")
+[node name="Right Arm" type="PinJoint2D" parent="Right Arm"]
+position = Vector2(4.76837e-07, -11)
+rotation = 1.5708
+node_a = NodePath("../../Torso")
+node_b = NodePath("..")
+disable_collision = false

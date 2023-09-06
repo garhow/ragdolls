@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=3 uid="uid://ck6qftndqtstx"]
+
+[ext_resource type="Texture2D" uid="uid://ce6jmoonvoa4c" path="res://objects/creatures/human/Head.png" id="1_wvg8h"]
+[ext_resource type="Texture2D" uid="uid://ooem2rofuo3h" path="res://objects/creatures/human/Torso.png" id="2_oot84"]
+[ext_resource type="Texture2D" uid="uid://caqle3rbx23b8" path="res://objects/creatures/human/Limb.png" id="3_b58f7"]
+
+[sub_resource type="SkeletonModification2DPhysicalBones" id="SkeletonModification2DPhysicalBones_hh3kb"]
+execution_mode = 1
+physical_bone_chain_length = 3
+fetch_bones = null
+joint_0_nodepath = NodePath("Physical Hip")
+joint_1_nodepath = NodePath("Physical Head")
+joint_2_nodepath = NodePath("Physical Left Arm")
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_vh6rq"]
+enabled = true
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DPhysicalBones_hh3kb")
+
+[node name="Human" type="Node2D"]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="."]
+modification_stack = SubResource("SkeletonModificationStack2D_vh6rq")
+
+[node name="Hip" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(0, 30)
+rest = Transform2D(1, 0, 0, 1, 0, 31)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Head" type="Bone2D" parent="Skeleton2D/Hip"]
+position = Vector2(-10, -31)
+rest = Transform2D(1, 0, 0, 1, 0, -31)
+auto_calculate_length_and_angle = false
+length = 8.0
+bone_angle = 0.0
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Head" type="Polygon2D" parent="Skeleton2D/Hip/Head"]
+texture_filter = 1
+texture = ExtResource("1_wvg8h")
+skeleton = NodePath("../../..")
+polygon = PackedVector2Array(10, 10, -10, 10, -10, -10, 10, -10)
+uv = PackedVector2Array(20, 20, 0, 20, 0, 0, 20, 0)
+polygons = [PackedInt32Array(0, 1, 2, 3)]
+
+[node name="Torso" type="Polygon2D" parent="Skeleton2D/Hip"]
+texture_filter = 1
+position = Vector2(0, -11)
+texture = ExtResource("2_oot84")
+polygon = PackedVector2Array(6, 12, -6, 12, -6, -12, 6, -12)
+uv = PackedVector2Array(12, 24, 0, 24, 0, 0, 12, 0)
+polygons = [PackedInt32Array(0, 1, 2, 3)]
+
+[node name="Left Arm" type="Bone2D" parent="Skeleton2D/Hip"]
+position = Vector2(6, -21)
+rest = Transform2D(1, 0, 0, 1, 6, -21)
+auto_calculate_length_and_angle = false
+length = 20.0
+bone_angle = 0.0
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/Hip/Left Arm"]
+texture_filter = 1
+position = Vector2(12, 0)
+rotation = 1.5708
+texture = ExtResource("3_b58f7")
+
+[node name="Physical Hip" type="PhysicalBone2D" parent="Skeleton2D"]
+position = Vector2(0, 31)
+bone2d_nodepath = NodePath("../Hip")
+bone2d_index = 0
+simulate_physics = true
+
+[node name="Physical Head" type="PhysicalBone2D" parent="Skeleton2D"]
+bone2d_nodepath = NodePath("../Hip/Head")
+bone2d_index = 1
+simulate_physics = true
+
+[node name="Physical Left Arm" type="PhysicalBone2D" parent="Skeleton2D"]
+position = Vector2(6, 10)
+bone2d_nodepath = NodePath("../Hip/Left Arm")
+bone2d_index = 2
+simulate_physics = true

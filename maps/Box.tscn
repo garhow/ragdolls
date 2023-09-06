@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://jpro6rarghf0"]
+
+[ext_resource type="PackedScene" uid="uid://ce0v4imrrwj0o" path="res://Player.tscn" id="1_qcu05"]
+
+[sub_resource type="Gradient" id="Gradient_ea1yq"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fdf1y"]
+gradient = SubResource("Gradient_ea1yq")
+width = 1024
+height = 128
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j7osa"]
+size = Vector2(1024, 128)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v53yy"]
+gradient = SubResource("Gradient_ea1yq")
+width = 128
+height = 1024
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_32cd4"]
+size = Vector2(128, 1024)
+
+[node name="Basic" type="Node2D"]
+
+[node name="Bottom" type="StaticBody2D" parent="."]
+position = Vector2(0, 448)
+
+[node name="Sprite" type="Sprite2D" parent="Bottom"]
+texture = SubResource("GradientTexture2D_fdf1y")
+
+[node name="Collision" type="CollisionShape2D" parent="Bottom"]
+shape = SubResource("RectangleShape2D_j7osa")
+
+[node name="Top" type="StaticBody2D" parent="."]
+position = Vector2(0, -448)
+
+[node name="Sprite" type="Sprite2D" parent="Top"]
+texture = SubResource("GradientTexture2D_fdf1y")
+
+[node name="Collision" type="CollisionShape2D" parent="Top"]
+shape = SubResource("RectangleShape2D_j7osa")
+
+[node name="Left" type="StaticBody2D" parent="."]
+position = Vector2(-448, 0)
+
+[node name="Sprite" type="Sprite2D" parent="Left"]
+texture = SubResource("GradientTexture2D_v53yy")
+
+[node name="Collision" type="CollisionShape2D" parent="Left"]
+shape = SubResource("RectangleShape2D_32cd4")
+
+[node name="Right" type="StaticBody2D" parent="."]
+position = Vector2(448, 0)
+
+[node name="Sprite" type="Sprite2D" parent="Right"]
+texture = SubResource("GradientTexture2D_v53yy")
+
+[node name="Collision" type="CollisionShape2D" parent="Right"]
+shape = SubResource("RectangleShape2D_32cd4")
+
+[node name="Player" parent="." instance=ExtResource("1_qcu05")]
