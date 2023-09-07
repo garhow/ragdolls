@@ -1,10 +1,10 @@
 extends Camera2D
 
 const MIN_ZOOM := 0.5
-const MAX_ZOOM := 3.0
-const ZOOM_INCREMENT := 0.1
+const MAX_ZOOM := 5.0
+const ZOOM_INCREMENT := 0.05
 
-var target_zoom := 1.0
+var target_zoom := 1.5
 
 func _input(event):
 	# Zooming using the scroll wheel

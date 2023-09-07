@@ -10,6 +10,7 @@ radius = 16.0
 mass = 32.0
 can_sleep = false
 script = ExtResource("1_y23rl")
+flippable = null
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1

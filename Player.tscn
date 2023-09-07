@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://ce0v4imrrwj0o"]
+[gd_scene load_steps=12 format=3 uid="uid://ce0v4imrrwj0o"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_0b2wf"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="1_dxxau"]
 [ext_resource type="Script" path="res://scripts/UI.gd" id="3_f4pju"]
 [ext_resource type="Script" path="res://scripts/Pause Menu.gd" id="4_ap2el"]
+[ext_resource type="AudioStream" uid="uid://dw6f1c0wbarj5" path="res://sounds/undo.ogg" id="6_xja1s"]
+[ext_resource type="AudioStream" uid="uid://bib27i3cog6sx" path="res://sounds/error.ogg" id="7_oh653"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esew8"]
 
@@ -157,61 +159,64 @@ layout_mode = 2
 text = "· Press G to slow down physics"
 autowrap_mode = 2
 
-[node name="Tools" type="PanelContainer" parent="Camera/User Interface"]
-custom_minimum_size = Vector2(86.22, 0)
+[node name="TabContainer" type="TabContainer" parent="Camera/User Interface"]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -86.22
-offset_top = -60.0
-offset_bottom = 60.0
+offset_left = -138.0
+offset_top = -101.0
+offset_bottom = 101.0
 grow_horizontal = 0
 grow_vertical = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
+tab_alignment = 1
+clip_tabs = false
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera/User Interface/Tools"]
-layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="VSplitContainer" type="VSplitContainer" parent="Camera/User Interface/Tools/MarginContainer"]
+[node name="Tools" type="VSplitContainer" parent="Camera/User Interface/TabContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer"]
-layout_mode = 2
-text = "Tools"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera/User Interface/TabContainer/Tools"]
 layout_mode = 2
 
-[node name="Drag" type="Button" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer"]
+[node name="Drag" type="Button" parent="Camera/User Interface/TabContainer/Tools/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Drag objects around."
 text = "Drag"
 
-[node name="Pin" type="Button" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer"]
+[node name="Antigrav" type="Button" parent="Camera/User Interface/TabContainer/Tools/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Toggle gravity on an object"
+text = "Anti-gravity"
+
+[node name="Pin" type="Button" parent="Camera/User Interface/TabContainer/Tools/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Pin objects to the background."
 text = "Pin"
 
-[node name="Pull" type="Button" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer"]
+[node name="Weld" type="Button" parent="Camera/User Interface/TabContainer/Tools/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Pin objects to the background."
+text = "Weld"
+
+[node name="Powers" type="VSplitContainer" parent="Camera/User Interface/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera/User Interface/TabContainer/Powers"]
+layout_mode = 2
+
+[node name="Pull" type="Button" parent="Camera/User Interface/TabContainer/Powers/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Pin objects to the background."
 text = "Pull"
 
-[node name="Push" type="Button" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer"]
+[node name="Push" type="Button" parent="Camera/User Interface/TabContainer/Powers/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Pin objects to the background."
 text = "Push"
 
-[node name="Lift" type="Button" parent="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer"]
+[node name="Lift" type="Button" parent="Camera/User Interface/TabContainer/Powers/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Pin objects to the background."
 text = "Lift"
@@ -328,11 +333,21 @@ linear_damp = 1.0
 shape = SubResource("CircleShape2D_sysie")
 debug_color = Color(0, 0.6, 0, 0.419608)
 
-[connection signal="pressed" from="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer/Drag" to="Camera/User Interface" method="_on_tool_picked" binds= [0]]
-[connection signal="pressed" from="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer/Pin" to="Camera/User Interface" method="_on_tool_picked" binds= [1]]
-[connection signal="pressed" from="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer/Pull" to="Camera/User Interface" method="_on_tool_picked" binds= [2]]
-[connection signal="pressed" from="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer/Push" to="Camera/User Interface" method="_on_tool_picked" binds= [3]]
-[connection signal="pressed" from="Camera/User Interface/Tools/MarginContainer/VSplitContainer/VBoxContainer/Lift" to="Camera/User Interface" method="_on_tool_picked" binds= [4]]
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Undo" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("6_xja1s")
+
+[node name="Error" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("7_oh653")
+
+[connection signal="pressed" from="Camera/User Interface/TabContainer/Tools/VBoxContainer/Drag" to="Camera/User Interface" method="_on_tool_picked" binds= [0]]
+[connection signal="pressed" from="Camera/User Interface/TabContainer/Tools/VBoxContainer/Antigrav" to="Camera/User Interface" method="_on_tool_picked" binds= [6]]
+[connection signal="pressed" from="Camera/User Interface/TabContainer/Tools/VBoxContainer/Pin" to="Camera/User Interface" method="_on_tool_picked" binds= [1]]
+[connection signal="pressed" from="Camera/User Interface/TabContainer/Tools/VBoxContainer/Weld" to="Camera/User Interface" method="_on_tool_picked" binds= [5]]
+[connection signal="pressed" from="Camera/User Interface/TabContainer/Powers/VBoxContainer/Pull" to="Camera/User Interface" method="_on_tool_picked" binds= [2]]
+[connection signal="pressed" from="Camera/User Interface/TabContainer/Powers/VBoxContainer/Push" to="Camera/User Interface" method="_on_tool_picked" binds= [3]]
+[connection signal="pressed" from="Camera/User Interface/TabContainer/Powers/VBoxContainer/Lift" to="Camera/User Interface" method="_on_tool_picked" binds= [4]]
 [connection signal="pressed" from="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer/Resume" to="Camera/User Interface/Pause Menu" method="_resume"]
 [connection signal="pressed" from="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer/Return to Title" to="Camera/User Interface/Pause Menu" method="_return_to_title"]
 [connection signal="pressed" from="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer/Quit Game" to="Camera/User Interface/Pause Menu" method="_quit_game"]

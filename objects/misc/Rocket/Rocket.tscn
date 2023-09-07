@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgetaf3rg0uq2"]
+
+[ext_resource type="Script" path="res://objects/misc/Rocket/Rocket.gd" id="1_3i4fi"]
+[ext_resource type="Texture2D" uid="uid://c8dsiponecs4b" path="res://objects/misc/Rocket/Rocket.png" id="2_7e785"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl018"]
+size = Vector2(8, 32)
+
+[sub_resource type="Curve" id="Curve_h2tda"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Rocket" type="RigidBody2D" node_paths=PackedStringArray("particles")]
+script = ExtResource("1_3i4fi")
+particles = NodePath("Particles")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_7e785")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xl018")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, 16)
+emitting = false
+amount = 16
+lifetime = 0.2
+direction = Vector2(0, 4)
+gravity = Vector2(0, 0)
+initial_velocity_max = 128.0
+angular_velocity_max = 360.0
+linear_accel_max = 100.0
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(1, 0.513726, 0, 1)
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+hue_variation_curve = SubResource("Curve_h2tda")

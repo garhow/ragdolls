@@ -1,7 +1,8 @@
-class_name Draggable
-extends RigidBody2D
+class_name Draggable extends RigidBody2D
 
-@export var flippable := true
+@export var flippable := false
+
+@onready var default_gravity = self.gravity_scale
 
 var dragging := false
 var hovering := false
@@ -9,36 +10,50 @@ var hovering := false
 var current_joint : PinJoint2D
 var current_pivot : PhysicsBody2D
 
+func play_sound(path: Resource):
+	var sound = AudioStreamPlayer2D.new()
+	sound.stream = path
+	sound.global_position = global_position
+	add_child(sound)
+	sound.play()
+
 func _ready():
 	input_pickable = true
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
+	play_sound(preload("res://sounds/spawn.ogg"))
 
 func _interact():
 	pass
 
 func _flip():
-	pass
-	#if flippable:
-	#	for child in get_children():
-	#		child.scale.x = -1
+	if flippable:
+		for child in get_children():
+			child.scale.x = -1
+
+func _antigravity():
+	play_sound(load("res://sounds/gravity.ogg"))
+	if gravity_scale == default_gravity:
+		gravity_scale = -1
+	else:
+		gravity_scale = default_gravity
 
 func _pin():
-	var target = StaticBody2D.new()
-	target.position = get_local_mouse_position()
-	get_tree().current_scene.add_child(target)
-	
-	var pin = PinJoint2D.new()
-	pin.position = get_local_mouse_position()
-	pin.node_a = target.get_path()
-	pin.node_b = self.get_path()
-	
-	var sprite = Sprite2D.new()
-	sprite.texture = load("res://objects/misc/peg.png")
-	sprite.texture_filter = TEXTURE_FILTER_NEAREST
-	pin.add_child(sprite)
-	
-	add_child(pin)
+	Game.spawn(Pin.new(self))
+
+func _weld():
+	if Game.buffer_tool != Game.Tools.WELD:
+		Game.buffer_tool = Game.Tools.WELD
+		Game.buffer.clear()
+	if Game.buffer.size() == 0:
+		Game.buffer.append([self.get_path(), get_global_mouse_position()])
+		play_sound(load("res://sounds/weld1.ogg"))
+	else:
+		Game.buffer.append([self.get_path(), get_global_mouse_position()])
+		play_sound(load("res://sounds/weld2.ogg"))
+		
+		Game.spawn(Weld.new())
+		Game.buffer.clear()
 
 func _handle_dragging():
 	if Game.tool == Game.Tools.DRAG:
@@ -75,7 +90,9 @@ func _process(_delta):
 		if Input.is_action_just_pressed("interact"): _interact()
 		if Input.is_action_just_pressed("delete"): queue_free()
 		if Input.is_action_just_pressed("flip"): _flip()
+		if Input.is_action_just_pressed("click") and Game.tool == Game.Tools.ANTIGRAVITY: _antigravity()
 		if Input.is_action_just_pressed("click") and Game.tool == Game.Tools.PIN: _pin()
+		if Input.is_action_just_pressed("click") and Game.tool == Game.Tools.WELD: _weld()
 	
 	# Handle modulation
 	if hovering:
@@ -86,6 +103,12 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	_handle_dragging()
+	_custom_physics_process(_delta)
+	if global_position.x < -Game.world_size or global_position.x > Game.world_size or global_position.y < -Game.world_size or global_position.y > Game.world_size:
+		queue_free()
+
+func _custom_physics_process(_delta):
+	pass
 
 func _on_mouse_entered(): hovering = true
 func _on_mouse_exited(): hovering = false

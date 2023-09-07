@@ -4,9 +4,11 @@
 
 ### Action
 
-* `E` - spawn object
+* `E/Q` - spawn object
 * `F` - freeze selected object
 * `R` - interact with selected object
+* `G` - slow down time
+* `D/DEL` - delete object
 * `P` - pause game
 
 ### Camera

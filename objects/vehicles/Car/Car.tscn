@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://rugbym61gnn"]
 
 [ext_resource type="Script" path="res://classes/Draggable.gd" id="1_2rw1j"]
-[ext_resource type="Script" path="res://objects/vehicles/Car/Car.gd" id="1_md1p3"]
+[ext_resource type="Script" path="res://objects/vehicles/Vehicle.gd" id="1_ckbfh"]
 [ext_resource type="Texture2D" uid="uid://dgkx6tvafhj1x" path="res://objects/vehicles/Car/Chassis.png" id="2_kokxh"]
 [ext_resource type="Texture2D" uid="uid://cxcydc2ey7riw" path="res://objects/vehicles/Car/Wheel.png" id="3_c2fuf"]
 [ext_resource type="PhysicsMaterial" uid="uid://deuw2blkcknwv" path="res://objects/vehicles/Car/Wheel.tres" id="4_jf1g3"]
@@ -18,7 +18,7 @@ radius = 13.0
 mass = 18.0
 physics_material_override = SubResource("PhysicsMaterial_qlcab")
 can_sleep = false
-script = ExtResource("1_md1p3")
+script = ExtResource("1_ckbfh")
 torque = 500.0
 rear_wheel_body = NodePath("../Rear Wheel")
 front_wheel_body = NodePath("../Front Wheel")
@@ -37,6 +37,7 @@ mass = 0.16
 physics_material_override = ExtResource("4_jf1g3")
 can_sleep = false
 script = ExtResource("1_2rw1j")
+flippable = null
 
 [node name="Sprite" type="Sprite2D" parent="Rear Wheel"]
 texture_filter = 1
@@ -57,6 +58,7 @@ mass = 0.16
 physics_material_override = ExtResource("4_jf1g3")
 can_sleep = false
 script = ExtResource("1_2rw1j")
+flippable = null
 
 [node name="Sprite" type="Sprite2D" parent="Front Wheel"]
 texture_filter = 1

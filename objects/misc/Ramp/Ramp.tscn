@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp0pjie381ime"]
+
+[ext_resource type="Script" path="res://classes/Draggable.gd" id="1_sov8h"]
+[ext_resource type="Texture2D" uid="uid://be0ix6l3exjnr" path="res://objects/misc/Ramp/Ramp.png" id="2_8sew7"]
+
+[node name="Ramp" type="RigidBody2D"]
+mass = 10.0
+can_sleep = false
+script = ExtResource("1_sov8h")
+flippable = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_8sew7")
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -1, -63, 19, -69, 21, 64, 21, 64, -22)

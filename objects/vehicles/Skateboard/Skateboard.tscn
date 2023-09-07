@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfy4ul8kjo6hr"]
+
+[ext_resource type="Script" path="res://objects/vehicles/Vehicle.gd" id="1_6i1km"]
+[ext_resource type="Texture2D" uid="uid://c5nnu63x36lbx" path="res://objects/vehicles/Skateboard/Deck.png" id="2_ttxno"]
+[ext_resource type="Texture2D" uid="uid://bgy45eiu1dw1k" path="res://objects/vehicles/Skateboard/Wheel.png" id="3_fyixb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n2qff"]
+radius = 2.0
+
+[node name="Skateboard" type="RigidBody2D" node_paths=PackedStringArray("rear_wheel_body", "front_wheel_body")]
+mass = 0.4
+script = ExtResource("1_6i1km")
+torque = 0.3
+rear_wheel_body = NodePath("Rear Wheel")
+front_wheel_body = NodePath("Front Wheel")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_ttxno")
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(16.5, 3, -16.5, 3, -16.5, -3, 16.5, -3)
+
+[node name="Rear Wheel" type="RigidBody2D" parent="."]
+position = Vector2(-7.5, 4)
+mass = 0.1
+
+[node name="Sprite" type="Sprite2D" parent="Rear Wheel"]
+texture_filter = 1
+texture = ExtResource("3_fyixb")
+
+[node name="Collision" type="CollisionShape2D" parent="Rear Wheel"]
+shape = SubResource("CircleShape2D_n2qff")
+
+[node name="Joint" type="PinJoint2D" parent="Rear Wheel"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Front Wheel" type="RigidBody2D" parent="."]
+position = Vector2(7.5, 4)
+mass = 0.1
+
+[node name="Sprite" type="Sprite2D" parent="Front Wheel"]
+texture_filter = 1
+texture = ExtResource("3_fyixb")
+
+[node name="Collision" type="CollisionShape2D" parent="Front Wheel"]
+shape = SubResource("CircleShape2D_n2qff")
+
+[node name="Joint" type="PinJoint2D" parent="Front Wheel"]
+node_a = NodePath("../..")
+node_b = NodePath("..")

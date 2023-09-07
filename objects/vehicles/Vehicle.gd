@@ -1,4 +1,4 @@
-extends Draggable
+class_name GenericVehicle extends Draggable
 
 var driving := false
 
