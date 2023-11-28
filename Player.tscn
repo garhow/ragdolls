@@ -42,10 +42,9 @@ weapon_grid = NodePath("Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Weapon
 vehicle_grid = NodePath("Spawnlist/MarginContainer/VBoxContainer/Spawnlist/Vehicles/Grid")
 
 [node name="Spawnlist" type="PanelContainer" parent="Camera/User Interface"]
-custom_minimum_size = Vector2(256, 0)
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 124.0
+offset_right = 142.0
 grow_vertical = 2
 size_flags_horizontal = 0
 
@@ -122,43 +121,6 @@ text = "Vehicles"
 layout_mode = 2
 columns = 2
 
-[node name="HSeparator" type="HSeparator" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Tips" type="VBoxContainer" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 10
-
-[node name="Spawn Tip" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
-layout_mode = 2
-text = "· Press E to spawn an object"
-autowrap_mode = 2
-
-[node name="Deletion Tip" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
-layout_mode = 2
-text = "· Press D or DEL to delete an object"
-autowrap_mode = 2
-
-[node name="Interact Tip" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
-layout_mode = 2
-text = "· Press R to interact with an object"
-autowrap_mode = 2
-
-[node name="Freeze Tip" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
-layout_mode = 2
-text = "· Press F to freeze an object"
-autowrap_mode = 2
-
-[node name="Pause Tip" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
-layout_mode = 2
-text = "· Press P to pause physics"
-autowrap_mode = 2
-
-[node name="Freeze Tip3" type="Label" parent="Camera/User Interface/Spawnlist/MarginContainer/VBoxContainer/Tips"]
-layout_mode = 2
-text = "· Press G to slow down physics"
-autowrap_mode = 2
-
 [node name="TabContainer" type="TabContainer" parent="Camera/User Interface"]
 anchors_preset = 6
 anchor_left = 1.0
@@ -166,8 +128,8 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -138.0
-offset_top = -101.0
-offset_bottom = 101.0
+offset_top = -118.5
+offset_bottom = 118.5
 grow_horizontal = 0
 grow_vertical = 2
 tab_alignment = 1
@@ -198,6 +160,16 @@ text = "Pin"
 layout_mode = 2
 tooltip_text = "Pin objects to the background."
 text = "Weld"
+
+[node name="Platform" type="Button" parent="Camera/User Interface/TabContainer/Tools/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Create a platform from two points."
+text = "Platform"
+
+[node name="Conveyor Belt" type="Button" parent="Camera/User Interface/TabContainer/Tools/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Create a conveyor belt from two points."
+text = "Conveyor Belt"
 
 [node name="Powers" type="VSplitContainer" parent="Camera/User Interface/TabContainer"]
 visible = false
@@ -292,6 +264,10 @@ label_settings = SubResource("LabelSettings_g475n")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Camera/ParallaxBackground"]
+
 [node name="Pull" type="Area2D" parent="."]
 monitoring = false
 monitorable = false
@@ -341,13 +317,21 @@ stream = ExtResource("6_xja1s")
 [node name="Error" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("7_oh653")
 
+[connection signal="mouse_entered" from="Camera/User Interface/Spawnlist" to="." method="_on_ui_mouse_entered"]
+[connection signal="mouse_exited" from="Camera/User Interface/Spawnlist" to="." method="_on_ui_mouse_exited"]
+[connection signal="mouse_entered" from="Camera/User Interface/TabContainer" to="." method="_on_ui_mouse_entered"]
+[connection signal="mouse_exited" from="Camera/User Interface/TabContainer" to="." method="_on_ui_mouse_exited"]
 [connection signal="pressed" from="Camera/User Interface/TabContainer/Tools/VBoxContainer/Drag" to="Camera/User Interface" method="_on_tool_picked" binds= [0]]
 [connection signal="pressed" from="Camera/User Interface/TabContainer/Tools/VBoxContainer/Antigrav" to="Camera/User Interface" method="_on_tool_picked" binds= [6]]
 [connection signal="pressed" from="Camera/User Interface/TabContainer/Tools/VBoxContainer/Pin" to="Camera/User Interface" method="_on_tool_picked" binds= [1]]
 [connection signal="pressed" from="Camera/User Interface/TabContainer/Tools/VBoxContainer/Weld" to="Camera/User Interface" method="_on_tool_picked" binds= [5]]
+[connection signal="pressed" from="Camera/User Interface/TabContainer/Tools/VBoxContainer/Platform" to="Camera/User Interface" method="_on_tool_picked" binds= [8]]
+[connection signal="pressed" from="Camera/User Interface/TabContainer/Tools/VBoxContainer/Conveyor Belt" to="Camera/User Interface" method="_on_tool_picked" binds= [7]]
 [connection signal="pressed" from="Camera/User Interface/TabContainer/Powers/VBoxContainer/Pull" to="Camera/User Interface" method="_on_tool_picked" binds= [2]]
 [connection signal="pressed" from="Camera/User Interface/TabContainer/Powers/VBoxContainer/Push" to="Camera/User Interface" method="_on_tool_picked" binds= [3]]
 [connection signal="pressed" from="Camera/User Interface/TabContainer/Powers/VBoxContainer/Lift" to="Camera/User Interface" method="_on_tool_picked" binds= [4]]
+[connection signal="mouse_entered" from="Camera/User Interface/Pause Menu" to="." method="_on_ui_mouse_entered"]
+[connection signal="mouse_exited" from="Camera/User Interface/Pause Menu" to="." method="_on_ui_mouse_exited"]
 [connection signal="pressed" from="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer/Resume" to="Camera/User Interface/Pause Menu" method="_resume"]
 [connection signal="pressed" from="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer/Return to Title" to="Camera/User Interface/Pause Menu" method="_return_to_title"]
 [connection signal="pressed" from="Camera/User Interface/Pause Menu/MarginContainer/VSplitContainer/VBoxContainer/Quit Game" to="Camera/User Interface/Pause Menu" method="_quit_game"]

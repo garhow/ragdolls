@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bns1e3bup0lew"]
+
+[ext_resource type="FontFile" uid="uid://cadbfh2h6qul7" path="res://fonts/ArcadeClassic.ttf" id="1_8mwts"]
+
+[resource]
+Fonts/fonts/normal = ExtResource("1_8mwts")

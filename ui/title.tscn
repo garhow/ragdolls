@@ -1,18 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://51oypqmhqkrg"]
+[gd_scene load_steps=5 format=3 uid="uid://51oypqmhqkrg"]
 
-[ext_resource type="Script" path="res://scripts/Title.gd" id="1_jhhpn"]
+[ext_resource type="Texture2D" uid="uid://bbcu065bu4f1w" path="res://ui/Logo.png" id="1_06y32"]
+[ext_resource type="Script" path="res://scripts/Title.gd" id="1_35qf8"]
 
-[node name="Title Screen" type="Control" node_paths=PackedStringArray("map_grid")]
+[sub_resource type="LabelSettings" id="LabelSettings_7lo3v"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_js0bv"]
+size = Vector2(227.5, 100)
+
+[node name="Title Screen" type="Control" node_paths=PackedStringArray("version_label", "logo_body", "logo_control", "menu_body", "menu_control")]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_jhhpn")
-map_grid = NodePath("VBoxContainer/PanelContainer/MarginContainer/Map Select/Grid")
+mouse_filter = 2
+script = ExtResource("1_35qf8")
+version_label = NodePath("MarginContainer/Version")
+logo_body = NodePath("Logo")
+logo_control = NodePath("VBoxContainer/VSplitContainer/Logo")
+menu_body = NodePath("Menu")
+menu_control = NodePath("VBoxContainer/VSplitContainer/VBoxContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -28,36 +38,73 @@ offset_bottom = 88.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "Ragdolls"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/separation = 32
+dragger_visibility = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+[node name="Logo" type="TextureRect" parent="VBoxContainer/VSplitContainer"]
+texture_filter = 1
 layout_mode = 2
+texture = ExtResource("1_06y32")
+stretch_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="Map Select" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VSplitContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/Map Select"]
+[node name="Play" type="Button" parent="VBoxContainer/VSplitContainer/VBoxContainer"]
 layout_mode = 2
-text = "Select a map"
-horizontal_alignment = 1
+text = "Play"
 
-[node name="Grid" type="GridContainer" parent="VBoxContainer/PanelContainer/MarginContainer/Map Select"]
+[node name="Options" type="Button" parent="VBoxContainer/VSplitContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-columns = 3
+text = "Options"
+
+[node name="Quit" type="Button" parent="VBoxContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit to Desktop"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="Attribution" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Made by Garrett Howard using the Godot Engine"
+label_settings = SubResource("LabelSettings_7lo3v")
+
+[node name="Version" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "v1.2.3"
+label_settings = SubResource("LabelSettings_7lo3v")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Menu" type="StaticBody2D" parent="."]
+position = Vector2(320, 299.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu"]
+shape = SubResource("RectangleShape2D_js0bv")
+
+[node name="Logo" type="StaticBody2D" parent="."]
+position = Vector2(320, 177)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Logo"]
+position = Vector2(91, -15)
+polygon = PackedVector2Array(-201, 48, -199, 31, -200, 5, -205, -18, -186, -21, -170, -18, -166, -6, -171, 5, -179, 10, -174, 10, -170, 17, -169, 33, -166, 39, -162, 40, -162, 18, -154, 4, -145, 0, -139, 1, -136, 5, -135, 17, -124, 5, -119, 1, -106, 0, -104, -4, -100, -1, -97, 6, -91, 10, -86, -3, -78, -10, -71, -8, -67, -3, -66, -17, -61, -26, -59, -20, -62, -1, -56, -4, -50, -12, -40, -12, -33, -3, -28, -3, -28, -29, -24, -29, -23, -23, -24, 2, -22, 11, -17, 10, -11, -8, -11, -31, -7, -32, -6, -23, -7, 0, -6, 8, -2, 4, 7, 4, 17, 2, 17, -4, 9, -6, 3, -9, 1, -19, 7, -24, 17, -23, 19, -21, 16, -17, 10, -15, 13, -11, 20, -9, 24, -4, 22, 1, 16, 6, 7, 8, -6, 11, -24, 20, -65, 25, -88, 27, -98, 34, -104, 50, -112, 56, -125, 54, -130, 51, -127, 48, -115, 50, -106, 43, -103, 26, -113, 34, -119, 35, -132, 38, -138, 35, -145, 41, -153, 41, -164, 44, -171, 42, -173, 31, -175, 19, -182, 13, -190, 13, -195, 15, -195, 31, -195, 45, -198, 49)
+
+[connection signal="pressed" from="VBoxContainer/VSplitContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/VSplitContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/VSplitContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_spawn_object"]

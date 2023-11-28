@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ooem2rofuo3h"
-path="res://.godot/imported/Torso.png-23bf1318abea9188cc9b507bec910ac9.ctex"
+uid="uid://bbcu065bu4f1w"
+path="res://.godot/imported/Logo.png-a41665f6f3d643c0a72736b711c043c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/creatures/human/Torso.png"
-dest_files=["res://.godot/imported/Torso.png-23bf1318abea9188cc9b507bec910ac9.ctex"]
+source_file="res://ui/Logo.png"
+dest_files=["res://.godot/imported/Logo.png-a41665f6f3d643c0a72736b711c043c2.ctex"]
 
 [params]
 

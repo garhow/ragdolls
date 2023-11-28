@@ -2,26 +2,16 @@ class_name Draggable extends RigidBody2D
 
 @export var flippable := false
 
-@onready var default_gravity = self.gravity_scale
-
 var dragging := false
 var hovering := false
 
 var current_joint : PinJoint2D
 var current_pivot : PhysicsBody2D
 
-func play_sound(path: Resource):
-	var sound = AudioStreamPlayer2D.new()
-	sound.stream = path
-	sound.global_position = global_position
-	add_child(sound)
-	sound.play()
-
 func _ready():
 	input_pickable = true
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
-	play_sound(preload("res://sounds/spawn.ogg"))
 
 func _interact():
 	pass
@@ -32,14 +22,8 @@ func _flip():
 			child.scale.x = -1
 
 func _antigravity():
-	play_sound(load("res://sounds/gravity.ogg"))
-	if gravity_scale == default_gravity:
-		gravity_scale = -1
-	else:
-		gravity_scale = default_gravity
-
-func _pin():
-	Game.spawn(Pin.new(self))
+	Game.play_2d_sound(load("res://sounds/gravity.ogg"), self)
+	gravity_scale = -gravity_scale
 
 func _weld():
 	if Game.buffer_tool != Game.Tools.WELD:
@@ -47,52 +31,53 @@ func _weld():
 		Game.buffer.clear()
 	if Game.buffer.size() == 0:
 		Game.buffer.append([self.get_path(), get_global_mouse_position()])
-		play_sound(load("res://sounds/weld1.ogg"))
+		Game.play_2d_sound(load("res://sounds/weld1.ogg"), self)
 	else:
 		Game.buffer.append([self.get_path(), get_global_mouse_position()])
-		play_sound(load("res://sounds/weld2.ogg"))
-		
+		Game.play_2d_sound(load("res://sounds/weld2.ogg"), self)
 		Game.spawn(Weld.new())
 		Game.buffer.clear()
 
 func _handle_dragging():
-	if Game.tool == Game.Tools.DRAG:
-		if Input.is_action_just_pressed("click") and hovering: dragging = true
-		if Input.is_action_just_released("click"): dragging = false
-		
-		if dragging:
-			if !current_pivot and !current_joint:
-				var pivot = StaticBody2D.new()
-				add_child(pivot)
+	if dragging:
+		if !current_pivot and !current_joint:
+			var pivot = StaticBody2D.new()
+			add_child(pivot)
 				
-				var joint = PinJoint2D.new()
-				joint.node_a = pivot.get_path()
-				joint.node_b = self.get_path()
-				joint.softness = 0.1
-				joint.position = get_local_mouse_position()
-				add_child(joint)
+			var joint = PinJoint2D.new()
+			joint.node_a = pivot.get_path()
+			joint.node_b = self.get_path()
+			joint.softness = 0.1
+			joint.position = get_local_mouse_position()
+			add_child(joint)
 				
-				current_joint = joint
-				current_pivot = pivot
-			current_pivot.position = get_local_mouse_position()
-		else:
-			if current_joint:
-				current_joint.queue_free()
-				current_joint = null
-			if current_pivot:
-				current_pivot.queue_free()
-				current_pivot = null
+			current_joint = joint
+			current_pivot = pivot
+		current_pivot.position = get_local_mouse_position()
+	else:
+		if current_joint:
+			current_joint.queue_free()
+			current_joint = null
+		if current_pivot:
+			current_pivot.queue_free()
+			current_pivot = null
 
 func _process(_delta):
+	# Check for dragging
+	if Game.tool == Game.Tools.DRAG and Input.is_action_just_pressed("click") and hovering: dragging = true
+	if Input.is_action_just_released("click"): dragging = false
+	
 	# Handle inputs
 	if hovering or dragging:
 		if Input.is_action_just_pressed("freeze"): freeze = !freeze
 		if Input.is_action_just_pressed("interact"): _interact()
 		if Input.is_action_just_pressed("delete"): queue_free()
 		if Input.is_action_just_pressed("flip"): _flip()
-		if Input.is_action_just_pressed("click") and Game.tool == Game.Tools.ANTIGRAVITY: _antigravity()
-		if Input.is_action_just_pressed("click") and Game.tool == Game.Tools.PIN: _pin()
-		if Input.is_action_just_pressed("click") and Game.tool == Game.Tools.WELD: _weld()
+		if Input.is_action_just_pressed("click"):
+			match Game.tool:
+				Game.Tools.ANTIGRAVITY: _antigravity()
+				Game.Tools.PIN: Game.spawn(Pin.new(self))
+				Game.Tools.WELD: _weld()
 	
 	# Handle modulation
 	if hovering:

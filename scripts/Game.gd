@@ -1,15 +1,6 @@
 extends Node
 
-class SpawnObject:
-	var Name: String
-	var File: Resource
-
-enum SpawnTypes {
-	OBJECT,
-	JOINT,
-	WELD,
-	CABLE
-}
+const VERSION = 0.5
 
 var maps := {
 	"basic": {
@@ -100,7 +91,9 @@ enum Tools {
 	PUSH,
 	LIFT,
 	WELD,
-	ANTIGRAVITY
+	ANTIGRAVITY,
+	CONVEYOR,
+	PLATFORM
 }
 
 # Current tool
@@ -118,3 +111,15 @@ var world_size := 2048
 func spawn(object: Node2D, parent: Node2D = get_tree().current_scene):
 	parent.add_child(object)
 	history.append(object.get_path())
+
+func play_sound(path: AudioStream):
+	var sound = AudioStreamPlayer.new()
+	sound.stream = path
+	add_child(sound)
+	sound.play()
+
+func play_2d_sound(path: AudioStream, parent: Node2D):
+	var sound = AudioStreamPlayer2D.new()
+	sound.stream = path
+	parent.add_child(sound)
+	sound.play()

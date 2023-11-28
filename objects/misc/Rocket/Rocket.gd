@@ -10,3 +10,4 @@ func _interact():
 
 func _custom_physics_process(_delta):
 	if activated: add_constant_central_force(Vector2.UP.rotated(rotation) * 128)
+	else: constant_force = Vector2.ZERO
